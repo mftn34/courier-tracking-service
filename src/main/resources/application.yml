@@ -1,0 +1,41 @@
+spring:
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.default_batch_fetch_size: 1000
+      hibernate.default_schema: public
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database: POSTGRESQL
+    database-platform: postgres
+    audit:
+      enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/courier-tracking
+    username: postgres
+    password: password
+  application:
+    name: courier-tracking-service
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+application:
+  audit:
+    user: courier-tracking-admin
+
+springdoc:
+  swagger-ui:
+    defaultModelsExpandDepth: -1
+
+thread-properties:
+  core-pool-size: 5
+  name: CourierLocationThreadExecutor
+  max-pool-size: 5
+  queue-capacity: 100
+
+store:
+  distance-radius: 100

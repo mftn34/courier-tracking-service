@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  courier-tracking-service:
+    container_name: courier-tracking-app
+    image: openjdk:21-jdk
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../target/courier-tracking-service-0.0.1-SNAPSHOT.jar:/courier-tracking-service-0.0.1-SNAPSHOT.jar
+    command: [ "java", "-jar", "/courier-tracking-service-0.0.1-SNAPSHOT.jar" ]
+    depends_on:
+      - redis
+      - courier-postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://courier-postgres:5432/courier-tracking
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    networks:
+      - app-net
+
+  courier-postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: courier-tracking
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+    networks:
+      - app-net
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-net
+
+
+networks:
+  app-net:
+    driver: bridge
