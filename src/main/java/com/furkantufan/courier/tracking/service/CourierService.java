@@ -8,7 +8,6 @@ import com.furkantufan.courier.tracking.data.request.CourierLocationRequest;
 import com.furkantufan.courier.tracking.data.request.CourierRequest;
 import com.furkantufan.courier.tracking.entity.Courier;
 import com.furkantufan.courier.tracking.exception.CourierException;
-import com.furkantufan.courier.tracking.exception.StoreNotFoundException;
 import com.furkantufan.courier.tracking.mapper.CourierMapper;
 import com.furkantufan.courier.tracking.repository.CourierLocationRepository;
 import com.furkantufan.courier.tracking.repository.CourierRepository;
@@ -44,7 +43,7 @@ public class CourierService {
 
     @Transactional(readOnly = true)
     public Courier findByCourierId(Long id) {
-        return courierRepository.findById(id).orElseThrow(() -> new StoreNotFoundException(
+        return courierRepository.findById(id).orElseThrow(() -> new CourierException(
                 MessageSourceConfiguration.getMessage("courier.not.found",
                         String.valueOf(id)))
         );

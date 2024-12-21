@@ -8,7 +8,7 @@
 
 - **Redis**
 
-- **Aspect-Oriented Programming**
+- **Aspect Oriented Programming**
 
 - **ApplicationEventPublisher**
 
@@ -62,7 +62,7 @@
 
    The application will run on port `8080`.
 
-# Swagger Documentation
+### Swagger Documentation
 
 This project uses Swagger for API documentation. 
 
@@ -138,7 +138,7 @@ Here are the key API endpoints:
 
 ### Test Coverage
 
-The project includes **unit tests** and **integration tests** with **Jacoco** for code coverage.
+The project includes **unit tests** with **Jacoco** for code coverage.
 
 To run the tests and generate a coverage report, run:
 
@@ -147,3 +147,4 @@ mvn test
 ```
 
 The report will be generated under the `/target/site/jacoco` directory.
+Code coverage rate:`/target/site/jacoco/index.html`

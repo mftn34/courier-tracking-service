@@ -13,6 +13,7 @@ import com.furkantufan.courier.tracking.service.StoreEntranceService;
 import com.furkantufan.courier.tracking.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.util.Streamable;
 import org.springframework.scheduling.annotation.Async;
@@ -22,6 +23,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -124,12 +126,16 @@ public class CourierLocationChangeEventHandler {
                 lastEntranceTime,
                 PageRequest.of(0, 100));
 
+        if (firstPage == null || firstPage.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         return Stream.iterate(firstPage, Objects::nonNull,
                         page -> {
                             int nextPageNumber = page.getNumber() + 1;
                             return nextPageNumber <= page.getTotalPages()
                                     ? courierService.getCourierLocationsGreaterThanByTime(courierId, lastEntranceTime, PageRequest.of(nextPageNumber, page.getSize()))
-                                    : null;
+                                    : Page.empty();
                         })
                 .flatMap(Streamable::get)
                 .sorted(Comparator.comparing(CourierLocationDto::getTime))

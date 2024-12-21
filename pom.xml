@@ -181,7 +181,17 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>com/furkantufan/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/common/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/configuration/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/controller/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/data/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/distance/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/entity/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/exception/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/mapper/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/repository/**/</exclude>
+								<exclude>com/furkantufan/courier/tracking/**/CourierTrackingServiceApplication.class</exclude>
+								<exclude>com/furkantufan/courier/tracking/**/DataLoaderProcessor.class</exclude>
 							</excludes>
 						</configuration>
 					</execution>
